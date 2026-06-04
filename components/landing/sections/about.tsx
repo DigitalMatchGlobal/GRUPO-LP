@@ -47,7 +47,7 @@ export function AboutSection() {
             className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-sm"
             style={{
               background:
-                "linear-gradient(135deg, rgba(22, 50, 79,0.04) 0%, rgba(255,255,255,1) 50%, rgba(47, 143, 131,0.04) 100%)",
+                "linear-gradient(135deg, rgba(5,18,45,0.04) 0%, rgba(255,255,255,1) 50%, rgba(8,81,220,0.04) 100%)",
             }}
           >
             {/* Decorative arc */}
