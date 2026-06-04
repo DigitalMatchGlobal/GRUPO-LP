@@ -1,0 +1,466 @@
+@import "tailwindcss";
+/* Fonts are loaded via next/font/google in app/layout.tsx */
+
+/* ─── Design Tokens ──────────────────────────────────────────────────
+   Paleta Grupo LP — muestreada del mockup (ver BRAND.md).
+   TODOS los colores de marca viven acá en :root. Ningún hex de marca
+   debe vivir fuera de este bloque (el resto del CSS y los componentes
+   referencian estos tokens vía var()).
+──────────────────────────────────────────────────────────────────── */
+:root {
+  /* ── Brand raw tokens (fuente: BRAND.md) ── */
+  --primary-navy: #05122d;   /* tinta: titulares, texto fuerte, base profunda */
+  --navy-surface: #01143f;   /* fondos oscuros (hero / banner dark) */
+  --accent: #0851dc;         /* azul eléctrico, acento de marca (LP, líneas, CTAs) */
+  --accent-bright: #085af9;  /* variante más saturada para highlights puntuales */
+  --steel: #354665;          /* texto secundario / muted sobre claro */
+  --brand-border: #b3bcc9;   /* bordes y divisores sobre fondo claro */
+  --paper: #f8f8f8;          /* fondo claro (off-white frío, NO blanco puro) */
+  --paper-muted: #ededef;    /* superficies claras secundarias */
+
+  /* ── Semantic (mapeados a la marca) ── */
+  --background: var(--paper);
+  --foreground: var(--primary-navy);
+
+  --card: #ffffff;
+  --card-foreground: var(--primary-navy);
+
+  --muted: var(--paper-muted);
+  --muted-foreground: var(--steel);
+
+  --border: var(--brand-border);
+  --input: var(--brand-border);
+
+  --primary: var(--primary-navy);
+  --primary-foreground: #ffffff;
+  --primary-glow: rgba(8, 90, 249, 0.15);
+
+  --accent-foreground: #ffffff;
+
+  --ring: var(--accent);
+
+  /* Typography */
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing */
+  --section-py: clamp(4rem, 8vw, 7rem);
+
+  /* Shadows (navy/accent de marca) */
+  --shadow-card: 0 1px 3px rgba(5,18,45,0.06), 0 4px 16px rgba(5,18,45,0.05);
+  --shadow-card-hover: 0 4px 8px rgba(5,18,45,0.08), 0 12px 32px rgba(5,18,45,0.13);
+  --shadow-button: 0 4px 24px rgba(5,18,45,0.38);
+  --shadow-accent: 0 4px 24px rgba(8,81,220,0.35);
+
+  /* Radii */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
+  --radius-full: 9999px;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Tailwind Theme Bridge ──────────────────────────────────────── */
+/* stylelint-disable-next-line at-rule-no-unknown */
+/* prettier-ignore */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ─── Typography ─────────────────────────────────────────────────── */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+/* Degradé corporativo: navy -> azul eléctrico -> bright */
+.text-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--primary)       0%,
+    var(--accent)        55%,
+    var(--accent-bright) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-warm {
+  background: linear-gradient(
+    135deg,
+    var(--accent-bright) 0%,
+    var(--accent)        55%,
+    var(--primary)       100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Eyebrow ────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.eyebrow::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--accent-bright));
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+/* ─── Cards ──────────────────────────────────────────────────────── */
+.card-elevated {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.28s ease, transform 0.28s ease, border-color 0.28s ease;
+}
+
+.card-elevated:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+  border-color: rgba(5, 18, 45, 0.2);
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8125rem 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary)       0%,
+    var(--accent)        60%,
+    var(--accent-bright) 100%
+  );
+  color: var(--primary-foreground);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: var(--radius-full);
+  border: none;
+  box-shadow: var(--shadow-button);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.22s ease, transform 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 55%);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 8px 32px rgba(5,18,45,0.45);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8125rem 1.75rem;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-ghost:hover {
+  background: var(--muted);
+  border-color: rgba(5, 18, 45, 0.28);
+  color: var(--primary);
+}
+
+/* ─── Divider ────────────────────────────────────────────────────── */
+.section-divider {
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--accent-bright));
+  border-radius: 9999px;
+  margin: 1.25rem 0 0;
+}
+
+/* ─── Noise overlay ──────────────────────────────────────────────── */
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ─── Stat chip ──────────────────────────────────────────────────── */
+.stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  background: linear-gradient(
+    135deg,
+    rgba(5, 18, 45, 0.08),
+    rgba(8, 81, 220, 0.07)
+  );
+  border: 1px solid rgba(5, 18, 45, 0.18);
+  border-radius: var(--radius-full);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+/* ─── Icon box ───────────────────────────────────────────────────── */
+.icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: linear-gradient(
+    135deg,
+    rgba(5, 18, 45, 0.10),
+    rgba(8, 81, 220, 0.08)
+  );
+  border: 1px solid rgba(5, 18, 45, 0.15);
+  border-radius: var(--radius-md);
+  color: var(--primary);
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.card-elevated:hover .icon-box {
+  background: linear-gradient(
+    135deg,
+    rgba(5, 18, 45, 0.16),
+    rgba(8, 81, 220, 0.13)
+  );
+  border-color: rgba(5, 18, 45, 0.28);
+}
+
+/* ─── Review quote mark ──────────────────────────────────────────── */
+.review-quote-mark {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  line-height: 1;
+  color: var(--primary);
+  opacity: 0.12;
+  font-weight: 800;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ─── Form inputs ────────────────────────────────────────────────── */
+input, textarea {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus-visible, textarea:focus-visible {
+  outline: none;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 18, 45, 0.18);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(5, 18, 45, 0.32);
+}
+
+/* ─── Selection ──────────────────────────────────────────────────── */
+::selection {
+  background: rgba(8, 81, 220, 0.16);
+  color: var(--foreground);
+}
+
+/* ─── Focus ring ─────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Visual stage / feature panels ──────────────────────────────── */
+.visual-stage {
+  position: relative;
+  min-height: 500px;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at 20% 10%, rgba(8,81,220,0.18), transparent 18%),
+              radial-gradient(circle at 100% 10%, rgba(8,90,249,0.16), transparent 16%),
+              linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+  backdrop-filter: blur(2px);
+}
+
+.scan-lines {
+  position: absolute;
+  inset: -20%;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 16px
+  );
+  animation: drift 18s linear infinite;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(40px, -30px, 0); }
+}
+
+.floating-panel {
+  position: absolute;
+  border-radius: 22px;
+  padding: 16px 18px;
+  color: #fff;
+  backdrop-filter: blur(16px);
+  background: rgba(10, 24, 38, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+.floating-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.22);
+}
+
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.dark-feature {
+  position: relative;
+  overflow: hidden;
+  border-radius: 34px;
+  background: linear-gradient(135deg, var(--navy-surface) 0%, var(--primary-navy) 52%, var(--accent) 100%);
+  box-shadow: 0 28px 64px rgba(5, 18, 45, 0.28);
+  color: #fff;
+  padding: 34px;
+}
+
+/* Animations for Contact blob */
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-10px, 18px) scale(1.06); }
+}
+
+/* Hide scrollbar for horizontal scroll nav on mobile */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Brand mark (logo tipográfico LP — placeholder) ─────────────── */
+.lp-mark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+}
+.lp-mark .lp-l { color: var(--primary); }
+.lp-mark .lp-p { color: var(--accent); }
+.lp-mark--light .lp-l { color: #ffffff; }
+.lp-mark--light .lp-p { color: var(--accent-bright); }
