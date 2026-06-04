@@ -1,96 +1,62 @@
 "use client";
 
 import { ArrowUpRight, Star } from "lucide-react";
-import { motion } from "framer-motion";
 
-import { useLanguage } from "@/components/i18n/language-context";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
+import { useLanguage } from "@/components/i18n/language-context";
 import { GOOGLE_MAPS_PROFILE_URL } from "@/lib/site";
-import { stagger } from "@/components/landing/sections/animations";
 
 export function ReviewsSection() {
-  const { t, locale } = useLanguage();
+  const { t } = useLanguage();
 
   return (
-    <MotionSection id="resenas" className="scroll-mt-24">
-      <div className="mx-auto max-w-6xl px-4 py-(--section-py) sm:px-6 lg:px-8">
-        <MotionItem className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow justify-center">{t.reviews.kicker}</p>
-          <h2 className="font-display mt-5 text-3xl tracking-tight text-foreground sm:text-4xl">
-            {t.reviews.title}
-          </h2>
-          <p className="mt-4 text-muted-foreground">{t.reviews.subtitle}</p>
+    <MotionSection id="resenas" className="technical-grid scroll-mt-24 py-(--section-py)">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <MotionItem className="grid gap-8 lg:grid-cols-[1fr_0.72fr] lg:items-end">
+          <div>
+            <p className="eyebrow">{t.reviews.kicker}</p>
+            <h2 className="section-title mt-6">{t.reviews.title}</h2>
+          </div>
+          <div className="border-l border-accent pl-6">
+            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">{t.reviews.subtitle}</p>
+            <a
+              href={GOOGLE_MAPS_PROFILE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.14em] text-primary hover:text-accent"
+            >
+              {t.reviews.viewMaps}
+              <ArrowUpRight className="size-4" />
+            </a>
+          </div>
         </MotionItem>
 
-        <motion.div
-          className="mx-auto mt-12 grid max-w-2xl gap-5"
-          variants={stagger.container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {t.reviews.items.map((r, i) => {
-            const rating = r.rating;
-            return (
-              <motion.div
-                key={`${locale}-rev-${i}`}
-                variants={stagger.item}
-                className="card-elevated flex flex-col gap-0 overflow-hidden p-6"
-              >
-                {/* Quote mark */}
-                <div className="review-quote-mark leading-none">&quot;</div>
-
-                {/* Stars + badge */}
-                <div className="mt-1 flex items-center justify-between gap-2">
-                  <div
-                    className="flex gap-0.5"
-                    aria-label={t.reviews.starsAria(rating)}
-                  >
-                    {Array.from({ length: rating }).map((_, si) => (
-                      <Star
-                        key={si}
-                        className="size-3.5 fill-amber-400 text-amber-400"
-                        aria-hidden
-                      />
-                    ))}
-                  </div>
-                  <span
-                    className="rounded-full border border-border bg-muted/60 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground"
-                  >
-                    {t.reviews.googleBadge}
-                  </span>
+        <div className="mt-14 grid gap-px bg-primary/15 lg:grid-cols-2">
+          {t.reviews.items.map((review, index) => (
+            <MotionItem key={review.quote} className="relative bg-card p-7 sm:p-10">
+              <div className="flex items-start justify-between gap-6">
+                <span className="review-quote-mark">&quot;</span>
+                <span className="font-mono text-[0.58rem] tracking-[0.2em] text-muted-foreground">
+                  TESTIMONIO / {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+              <blockquote className="mt-8 max-w-xl font-display text-xl leading-snug tracking-tight text-primary sm:text-2xl">
+                {review.quote}
+              </blockquote>
+              <div className="mt-10 flex flex-wrap items-end justify-between gap-5 border-t border-primary/15 pt-5">
+                <div>
+                  <p className="text-sm font-bold text-primary">{review.name}</p>
+                  {review.role && <p className="mt-1 text-xs text-muted-foreground">{review.role}</p>}
                 </div>
-
-                {/* Quote text */}
-                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-foreground">
-                  {r.quote}
-                </blockquote>
-
-                {/* Author */}
-                <div className="mt-6 border-t border-border pt-4">
-                  <p className="font-display text-sm font-semibold text-foreground">
-                    {r.name}
-                  </p>
-                  {r.role ? (
-                    <p className="text-xs text-muted-foreground">{r.role}</p>
-                  ) : null}
+                <div className="flex gap-1" aria-label={t.reviews.starsAria(review.rating)}>
+                  {Array.from({ length: review.rating }).map((_, star) => (
+                    <Star key={star} className="size-3.5 fill-accent text-accent" aria-hidden />
+                  ))}
                 </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        <MotionItem className="mt-10 text-center">
-          <a
-            href={GOOGLE_MAPS_PROFILE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary underline-offset-4 hover:underline"
-          >
-            {t.reviews.viewMaps}
-            <ArrowUpRight className="size-4" aria-hidden />
-          </a>
-        </MotionItem>
+              </div>
+            </MotionItem>
+          ))}
+        </div>
       </div>
     </MotionSection>
   );

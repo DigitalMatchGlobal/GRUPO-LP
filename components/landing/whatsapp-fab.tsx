@@ -16,7 +16,7 @@ export function WhatsAppFab({ className }: WhatsAppFabProps) {
 
   return (
     <motion.div
-      className={cn("fixed bottom-6 right-6 z-50 md:bottom-8 md:right-8", className)}
+      className={cn("fixed bottom-5 right-5 z-50 md:bottom-7 md:right-7", className)}
       initial={{ opacity: 0, scale: 0.85, y: 12 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 380, damping: 28, delay: 0.35 }}
@@ -26,8 +26,8 @@ export function WhatsAppFab({ className }: WhatsAppFabProps) {
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-stone-900/15",
-          "ring-2 ring-white/30 transition-transform hover:scale-[1.02] active:scale-[0.98]",
+          "flex items-center gap-2 bg-[#25D366] px-5 py-3.5 text-xs font-bold uppercase tracking-[0.08em] text-white shadow-[7px_7px_0_rgba(5,18,45,0.18)] [clip-path:polygon(0_0,calc(100%-10px)_0,100%_10px,100%_100%,10px_100%,0_calc(100%-10px))]",
+          "transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 active:scale-[0.98]",
           "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40",
         )}
       >

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useLanguage } from "@/components/i18n/language-context";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
 import {
@@ -48,7 +50,7 @@ export function ClientsMarquee() {
                 key={`a-${i}`}
                 className="flex h-12 shrink-0 items-center justify-center opacity-60 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0 sm:h-16"
               >
-                <img
+                <Image
                   src={logo.src}
                   alt={isFirstOccurrence ? logo.name : ""}
                   aria-hidden={isFirstOccurrence ? undefined : true}
@@ -67,7 +69,7 @@ export function ClientsMarquee() {
                 aria-hidden="true"
                 className="flex h-12 shrink-0 items-center justify-center opacity-60 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0 motion-reduce:hidden sm:h-16"
               >
-                <img
+                <Image
                   src={logo.src}
                   alt=""
                   width={192}
