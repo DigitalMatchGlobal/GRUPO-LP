@@ -52,7 +52,7 @@ export function HeroSection() {
         <div className="absolute -bottom-24 -left-24 h-[50vh] w-[50vh] bg-[radial-gradient(circle,rgba(8,90,249,0.22)_0%,transparent_65%)] blur-3xl" />
 
         {/* Cinematic vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(8,16,30,0.6)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(5,18,45,0.6)_100%)]" />
 
         {/* Top fade (merge with header) */}
         <div className="absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/45 to-transparent" />

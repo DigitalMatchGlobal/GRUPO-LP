@@ -16,7 +16,7 @@ export function Header() {
     <header
       className={
         scrolled
-          ? "fixed inset-x-0 top-0 z-40 border-b border-primary/15 bg-background/95 backdrop-blur-xl shadow-[0_8px_24px_-4px_rgba(15,23,42,0.10),0_4px_8px_-2px_rgba(15,23,42,0.04)] transition-[background-color,backdrop-filter,border-color,box-shadow] duration-200 ease-out"
+          ? "fixed inset-x-0 top-0 z-40 border-b border-primary/15 bg-background/95 backdrop-blur-xl shadow-[0_8px_24px_-4px_rgba(5,18,45,0.10),0_4px_8px_-2px_rgba(5,18,45,0.04)] transition-[background-color,backdrop-filter,border-color,box-shadow] duration-200 ease-out"
           : "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-black/10 backdrop-blur-sm transition-[background-color,backdrop-filter,border-color,box-shadow] duration-200 ease-out"
       }
     >
