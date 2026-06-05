@@ -33,7 +33,7 @@ export function Header() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between gap-4 transition-all ${scrolled ? "py-2.5" : "py-4"}`}>
           <Link href="/" aria-label={t.logoAlt}>
-            <BrandLogo variant={scrolled ? "dark" : "light"} />
+            <BrandLogo variant={scrolled ? "dark" : "light"} compact={scrolled} />
           </Link>
 
           <nav
