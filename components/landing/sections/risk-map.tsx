@@ -42,30 +42,30 @@ export function RiskMapSection() {
   return (
     <MotionSection id="riesgos" className="scroll-mt-24 overflow-hidden bg-primary py-(--section-py) text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
+        <div className="grid gap-8 sm:gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
           <MotionItem>
             <p className="eyebrow eyebrow-light">{copy.kicker}</p>
             <h2 className="section-title mt-6 text-white">{copy.title}</h2>
           </MotionItem>
-          <MotionItem className="border-l border-white/18 pl-6">
-            <p className="max-w-2xl text-base leading-relaxed text-white/62">{copy.intro}</p>
-            <a href="#servicios" className="mt-7 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-accent-bright hover:text-white">
+          <MotionItem className="border-l border-white/18 pl-4 sm:pl-6">
+            <p className="max-w-2xl text-sm leading-relaxed text-white/62 sm:text-base">{copy.intro}</p>
+            <a href="#servicios" className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-accent-bright hover:text-white sm:mt-7">
               {copy.cta}
               <ArrowRight className="size-4" />
             </a>
           </MotionItem>
         </div>
 
-        <div className="mt-16 grid gap-px bg-white/15 lg:grid-cols-5">
+        <div className="mt-10 grid gap-px bg-white/15 sm:mt-16 sm:grid-cols-2 lg:grid-cols-5">
           {copy.risks.map(([title, body, Icon], index) => {
             const RiskIcon = Icon as typeof FileWarning;
             return (
-              <MotionItem key={title as string} className="min-h-72 bg-primary p-6 ring-1 ring-white/5">
+              <MotionItem key={title as string} className="bg-primary p-5 ring-1 ring-white/5 sm:min-h-72 sm:p-6">
                 <span className="font-mono text-[0.58rem] uppercase tracking-[0.2em] text-accent-bright">
                   RISK / {String(index + 1).padStart(2, "0")}
                 </span>
-                <RiskIcon className="mt-10 size-7 text-white/80" strokeWidth={1.5} />
-                <h3 className="font-display mt-8 text-xl leading-tight text-white">{title as string}</h3>
+                <RiskIcon className="mt-6 size-6 text-white/80 sm:mt-10 sm:size-7" strokeWidth={1.5} />
+                <h3 className="font-display mt-5 text-lg leading-tight text-white sm:mt-8 sm:text-xl">{title as string}</h3>
                 <p className="mt-4 text-sm leading-relaxed text-white/52">{body as string}</p>
               </MotionItem>
             );

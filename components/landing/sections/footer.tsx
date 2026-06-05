@@ -11,14 +11,14 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="technical-grid-dark relative overflow-hidden bg-primary px-4 pb-10 pt-20 text-white sm:px-6 lg:px-8">
-      <div aria-hidden className="absolute -right-20 top-0 h-full w-[38%] bg-accent/10 [clip-path:polygon(32%_0,100%_0,100%_100%,0_100%)]" />
+    <footer className="technical-grid-dark relative overflow-hidden bg-primary px-4 pb-8 pt-14 text-white sm:px-6 sm:pb-10 sm:pt-20 lg:px-8">
+      <div aria-hidden className="absolute -right-20 top-0 hidden h-full w-[38%] bg-accent/10 [clip-path:polygon(32%_0,100%_0,100%_100%,0_100%)] sm:block" />
       <div className="relative mx-auto max-w-7xl">
-        <div className="grid gap-14 border-b border-white/15 pb-16 lg:grid-cols-[1.3fr_0.7fr_0.8fr]">
+        <div className="grid gap-10 border-b border-white/15 pb-10 sm:gap-14 sm:pb-16 lg:grid-cols-[1.3fr_0.7fr_0.8fr]">
           <div>
             <BrandLogo variant="light" />
-            <p className="font-display mt-10 max-w-[15ch] text-3xl leading-[1.05] text-white sm:text-4xl">{t.footer.tagline}</p>
-            <a href={getWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-8">
+            <p className="font-display mt-7 max-w-[15ch] text-2xl leading-[1.05] text-white sm:mt-10 sm:text-4xl">{t.footer.tagline}</p>
+            <a href={getWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" className="btn-primary mt-7 max-sm:w-full sm:mt-8">
               <MessageCircle className="size-4" />
               {t.nav.whatsapp}
             </a>
@@ -28,10 +28,10 @@ export function Footer() {
             <p className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.2em] text-accent-bright">{t.nav.sections}</p>
             <nav className="mt-7 border-t border-white/15">
               {[
-                ["#nosotros", t.nav.about],
+                ["#diagnostico", locale === "es" ? "Diagnóstico" : "Diagnosis"],
+                ["#riesgos", locale === "es" ? "Riesgos" : "Risk map"],
                 ["#servicios", t.nav.services],
                 ["#proceso", t.nav.process],
-                ["#paraquien", t.nav.forWhom],
                 ["#contacto", t.nav.contact],
               ].map(([href, label], index) => (
                 <a key={href} href={href} className="group flex items-center justify-between border-b border-white/15 py-3 text-xs font-bold uppercase tracking-[0.12em] text-white/55 hover:text-white">
@@ -54,13 +54,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 pt-8 text-[0.62rem] text-white/38 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-col gap-6 pt-7 text-[0.62rem] text-white/38 sm:pt-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-5">
             <p>{t.footer.rights(year)}</p>
             <a href="/politica-de-privacidad" className="hover:text-white">{t.footer.privacyPolicy}</a>
             <a href="/terminos-y-condiciones" className="hover:text-white">{t.footer.terms}</a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <a
               href="https://www.digitalmatchglobal.com/"
               target="_blank"

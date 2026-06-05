@@ -58,7 +58,7 @@ export function Header() {
               href={getWhatsAppUrl(locale)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary hidden min-h-9 px-4 text-[0.62rem] sm:inline-flex"
+              className="btn-primary max-sm:!hidden min-h-9 px-4 text-[0.62rem] sm:!inline-flex"
             >
               {t.nav.whatsapp}
             </a>

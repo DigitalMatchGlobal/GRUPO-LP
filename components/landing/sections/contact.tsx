@@ -55,11 +55,11 @@ export function ContactSection() {
   return (
     <MotionSection id="contacto" className="scroll-mt-24 bg-muted pt-(--section-py)">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
+        <div className="grid gap-10 sm:gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
           <MotionItem>
             <p className="eyebrow">{t.contact.kicker}</p>
             <h2 className="section-title mt-6">{t.contact.title}</h2>
-            <p className="mt-7 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
+            <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground sm:mt-7 sm:text-base">
               {t.contact.subtitle}
               <a href={`tel:${t.contact.subtitlePhone.replace(/\s/g, "")}`} className="font-bold text-primary hover:text-accent">
                 {t.contact.subtitlePhone}
@@ -67,7 +67,7 @@ export function ContactSection() {
               {t.contact.subtitleAfterPhone}
             </p>
 
-            <div className="mt-10 border-t border-primary/20">
+            <div className="mt-8 border-t border-primary/20 sm:mt-10">
               {t.contact.emails.map((entry) => (
                 <a
                   key={entry.address}
@@ -83,18 +83,18 @@ export function ContactSection() {
               ))}
             </div>
 
-            <a href={getWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-8">
+            <a href={getWhatsAppUrl(locale)} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-7 max-sm:w-full sm:mt-8">
               <Phone className="size-4" />
               {t.contact.ctaWhatsAppAlt}
             </a>
           </MotionItem>
 
           <MotionItem>
-            <div className="facet-card p-7 sm:p-10 lg:p-12">
-              <div className="flex items-start justify-between gap-8 border-b border-primary/15 pb-7">
+            <div className="facet-card p-5 sm:p-10 lg:p-12">
+              <div className="flex items-start justify-between gap-6 border-b border-primary/15 pb-5 sm:gap-8 sm:pb-7">
                 <div>
-                  <p className="font-mono text-[0.6rem] font-bold uppercase tracking-[0.2em] text-accent">Nueva consulta / 01</p>
-                  <h3 className="font-display mt-3 text-2xl tracking-tight sm:text-3xl">{t.contact.formTitle}</h3>
+                  <p className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.18em] text-accent sm:text-[0.6rem] sm:tracking-[0.2em]">Nueva consulta / 01</p>
+                  <h3 className="font-display mt-3 text-xl tracking-tight sm:text-3xl">{t.contact.formTitle}</h3>
                   <p className="mt-3 text-sm text-muted-foreground">{t.contact.formDescription}</p>
                 </div>
               </div>
@@ -107,8 +107,8 @@ export function ContactSection() {
                   <button type="button" onClick={() => setIsSuccess(false)} className="btn-ghost mt-7">Enviar otro mensaje</button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
-                  <div className="grid gap-5 sm:grid-cols-2">
+                <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4 sm:mt-8 sm:space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
                     <Field label={t.contact.labelName} error={fieldErrors.name} required>
                       <Input name="name" placeholder={t.contact.placeholderName} className={fieldClass} />
                     </Field>
@@ -132,11 +132,11 @@ export function ContactSection() {
                     <Textarea name="message" placeholder={t.contact.placeholderMessage} className="min-h-32 resize-none border-primary/20 bg-white p-4 focus-visible:ring-0" />
                   </Field>
                   {errorMsg && <p className="text-sm font-medium text-red-600">{errorMsg}</p>}
-                  <div className="flex flex-col gap-5 border-t border-primary/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-col gap-5 border-t border-primary/15 pt-5 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
                     <p className="max-w-sm text-[0.65rem] leading-relaxed text-muted-foreground">
                       {t.contact.privacyNoticeBefore}<a href="/politica-de-privacidad" className="font-bold text-primary hover:text-accent">{t.contact.privacyNoticeLink}</a>{t.contact.privacyNoticeAfter}
                     </p>
-                    <button type="submit" disabled={isSubmitting} className="btn-primary shrink-0 disabled:opacity-60">
+                    <button type="submit" disabled={isSubmitting} className="btn-primary shrink-0 disabled:opacity-60 max-sm:w-full">
                       {isSubmitting ? <><Loader2 className="size-4 animate-spin" /> Enviando...</> : <>{t.contact.submit}<ArrowRight className="size-4" /></>}
                     </button>
                   </div>

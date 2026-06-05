@@ -280,3 +280,51 @@ input:focus-visible, textarea:focus-visible, select:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+@media (max-width: 639px) {
+  :root {
+    --section-py: clamp(4rem, 14vw, 5.25rem);
+    --shadow-card: 0 14px 42px rgba(5, 18, 45, 0.1);
+    --shadow-button: 5px 5px 0 rgba(5, 18, 45, 0.18);
+  }
+
+  body {
+    font-size: 0.95rem;
+    line-height: 1.58;
+  }
+
+  .eyebrow {
+    gap: 0.55rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+
+  .eyebrow::before {
+    width: 1.35rem;
+    height: 0.35rem;
+  }
+
+  .section-title {
+    max-width: 12ch;
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    line-height: 1.03;
+    letter-spacing: -0.058em;
+  }
+
+  .facet-card {
+    clip-path: polygon(0 0, calc(100% - 1.35rem) 0, 100% 1.35rem, 100% 100%, 0 100%);
+  }
+
+  .facet-card::before {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    min-height: 2.85rem;
+    padding: 0.72rem 1.15rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+  }
+}

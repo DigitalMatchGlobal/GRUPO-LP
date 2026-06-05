@@ -72,12 +72,12 @@ export function OperationDiagnosisSection() {
   return (
     <MotionSection id="diagnostico" className="technical-grid scroll-mt-24 border-b border-primary/15 py-(--section-py)">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20">
+        <div className="grid gap-10 sm:gap-14 lg:grid-cols-[0.88fr_1.12fr] lg:gap-20">
           <MotionItem className="lg:sticky lg:top-28 lg:self-start">
             <p className="eyebrow">{copy.kicker}</p>
             <h2 className="section-title mt-6">{copy.title}</h2>
-            <p className="mt-8 max-w-lg text-base leading-relaxed text-muted-foreground">{copy.intro}</p>
-            <div className="mt-10 border-l-2 border-accent bg-card p-5 shadow-sm">
+            <p className="mt-6 max-w-lg text-sm leading-relaxed text-muted-foreground sm:mt-8 sm:text-base">{copy.intro}</p>
+            <div className="mt-7 border-l-2 border-accent bg-card p-4 shadow-sm sm:mt-10 sm:p-5">
               <p className="font-mono text-[0.62rem] font-bold uppercase tracking-[0.2em] text-accent">
                 {copy.strip}
               </p>
@@ -88,12 +88,12 @@ export function OperationDiagnosisSection() {
             {copy.cards.map((card, index) => {
               const Icon = card.icon;
               return (
-                <MotionItem key={card.title} className="group relative min-h-72 bg-card p-7 sm:p-9">
+                <MotionItem key={card.title} className="group relative bg-card p-6 sm:min-h-72 sm:p-9">
                   <span className="font-mono text-[0.58rem] tracking-[0.2em] text-muted-foreground">
                     DIAG / {String(index + 1).padStart(2, "0")}
                   </span>
-                  <Icon className="mt-10 size-8 text-accent" strokeWidth={1.6} />
-                  <h3 className="font-display mt-8 text-2xl leading-tight tracking-tight">{card.title}</h3>
+                  <Icon className="mt-6 size-7 text-accent sm:mt-10 sm:size-8" strokeWidth={1.6} />
+                  <h3 className="font-display mt-5 text-xl leading-tight tracking-tight sm:mt-8 sm:text-2xl">{card.title}</h3>
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{card.body}</p>
                   <ArrowDownRight className="absolute bottom-7 right-7 size-5 text-accent opacity-0 transition-opacity group-hover:opacity-100" />
                 </MotionItem>
