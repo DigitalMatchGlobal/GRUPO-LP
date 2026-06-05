@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowDownRight } from "lucide-react";
+import { ArrowRight, Stamp } from "lucide-react";
 import { motion } from "framer-motion";
 
 import { MotionItem, MotionSection } from "@/components/landing/motion";
@@ -9,52 +9,97 @@ import { useLanguage } from "@/components/i18n/language-context";
 
 const PROCESS_IMAGES = ["/proceso 1.png", "/proceso 2.png", "/proceso 3.png", "/proceso 4.png"] as const;
 
+const labels = {
+  es: {
+    kicker: "Expediente operativo",
+    title: "Un despacho serio se gestiona como expediente, no como trámite suelto.",
+    intro:
+      "Ordenamos datos, documentos, criterio aduanero, costos, permisos, presentación y liberación para que cada operación tenga trazabilidad de principio a fin.",
+    file: "Archivo de operación",
+    status: "Estado",
+    active: "En control",
+    cta: "Abrir consulta",
+  },
+  en: {
+    kicker: "Operational file",
+    title: "Serious clearance is managed as a file, not as an isolated filing.",
+    intro:
+      "We organize data, documents, customs criteria, costs, permits, filing and release so every operation has traceability from start to finish.",
+    file: "Operation file",
+    status: "Status",
+    active: "Under control",
+    cta: "Open inquiry",
+  },
+};
+
 export function ProcessSection() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
+  const copy = labels[locale];
 
   return (
     <MotionSection id="proceso" className="technical-grid scroll-mt-24 py-(--section-py)">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <MotionItem className="grid gap-8 border-b border-primary/20 pb-12 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-          <div>
-            <p className="eyebrow">{t.process.kicker}</p>
-            <h2 className="section-title mt-6">{t.process.title}</h2>
-          </div>
-          <p className="max-w-xl border-l border-accent pl-6 text-base leading-relaxed text-muted-foreground">{t.process.subtitle}</p>
-        </MotionItem>
+        <div className="grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+          <MotionItem className="lg:sticky lg:top-28 lg:self-start">
+            <p className="eyebrow">{copy.kicker}</p>
+            <h2 className="section-title mt-6">{copy.title}</h2>
+            <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground">{copy.intro}</p>
+            <a href="#contacto" className="btn-ghost mt-10">
+              {copy.cta}
+              <ArrowRight className="size-4" />
+            </a>
+          </MotionItem>
 
-        <ol className="mt-16 space-y-6">
-          {t.process.items.map((item, index) => (
-            <motion.li
-              key={item.step}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 0.55, delay: index * 0.07 }}
-              className="group grid overflow-hidden border border-primary/15 bg-card lg:grid-cols-[0.9fr_1.1fr]"
-            >
-              <div className={`relative min-h-64 overflow-hidden ${index % 2 ? "lg:order-2" : ""}`}>
-                <Image
-                  src={PROCESS_IMAGES[index]}
-                  alt={item.title}
-                  fill
-                  sizes="(min-width: 1024px) 45vw, 100vw"
-                  className="object-cover saturate-[0.72] transition duration-700 group-hover:scale-[1.025] group-hover:saturate-100"
-                />
-                <div className="absolute inset-0 bg-primary/12 mix-blend-multiply" />
-                <span className="absolute left-0 top-0 bg-accent px-5 py-3 font-mono text-xs font-bold tracking-[0.2em] text-white">
-                  {item.step}
-                </span>
+          <MotionItem className="facet-card p-5 sm:p-7 lg:p-8">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-primary/15 pb-5">
+              <div>
+                <p className="font-mono text-[0.58rem] font-bold uppercase tracking-[0.2em] text-accent">{copy.file}</p>
+                <p className="mt-1 text-sm text-muted-foreground">LP / DNA / UY</p>
               </div>
-              <div className={`relative flex min-h-64 flex-col justify-center p-7 sm:p-10 lg:p-14 ${index % 2 ? "lg:order-1" : ""}`}>
-                <ArrowDownRight className="absolute right-7 top-7 size-5 text-accent" />
-                <h3 className="font-display max-w-[18ch] text-2xl leading-tight sm:text-3xl">{item.title}</h3>
-                <p className="mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">{item.description}</p>
-                <div className="mt-8 h-px w-16 bg-accent transition-all duration-500 group-hover:w-32" />
+              <div className="flex items-center gap-3 bg-primary px-4 py-3 text-white">
+                <Stamp className="size-4 text-accent-bright" />
+                <span className="font-mono text-[0.58rem] uppercase tracking-[0.18em]">{copy.active}</span>
               </div>
-            </motion.li>
-          ))}
-        </ol>
+            </div>
+
+            <ol className="space-y-px bg-primary/15">
+              {t.process.items.map((item, index) => (
+                <motion.li
+                  key={item.step}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.25 }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
+                  className="grid gap-0 bg-card md:grid-cols-[13rem_1fr]"
+                >
+                  <div className="relative min-h-44 overflow-hidden md:min-h-full">
+                    <Image
+                      src={PROCESS_IMAGES[index]}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 768px) 13rem, 100vw"
+                      className="object-cover saturate-[0.68]"
+                    />
+                    <div className="absolute inset-0 bg-primary/24 mix-blend-multiply" />
+                    <span className="absolute left-0 top-0 bg-accent px-4 py-2 font-mono text-[0.62rem] font-bold tracking-[0.18em] text-white">
+                      FOLIO {item.step}
+                    </span>
+                  </div>
+                  <div className="grid gap-6 p-6 sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+                    <div>
+                      <p className="font-mono text-[0.56rem] uppercase tracking-[0.18em] text-muted-foreground">
+                        {copy.status} / {String(index + 1).padStart(2, "0")}
+                      </p>
+                      <h3 className="font-display mt-3 max-w-[18ch] text-2xl leading-tight">{item.title}</h3>
+                      <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+                    </div>
+                    <ArrowRight className="hidden size-5 text-accent sm:block" />
+                  </div>
+                </motion.li>
+              ))}
+            </ol>
+          </MotionItem>
+        </div>
       </div>
     </MotionSection>
   );

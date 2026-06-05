@@ -95,7 +95,7 @@ export type Messages = {
     kicker: string;
     title: string;
     subtitle: string;
-    items: [ServiceCopy, ServiceCopy, ServiceCopy, ServiceCopy];
+    items: ServiceCopy[];
   };
   reviews: {
     kicker: string;
@@ -206,15 +206,15 @@ export const translations: Record<Locale, Messages> = {
       ],
     },
     process: {
-      kicker: "Proceso",
-      title: "Un despacho ordenado, claro y sin sorpresas.",
+      kicker: "Expediente aduanero",
+      title: "Del análisis previo a la liberación: cada decisión documentada.",
       subtitle:
-        "Trabajamos con un método simple para que cada operación de comercio exterior avance con previsibilidad de punta a punta.",
+        "El despacho no empieza cuando llega la carga. Empieza cuando se revisa la mercadería, se valida la documentación y se anticipan tributos, permisos e intervenciones.",
       items: [
-        { step: "01", title: "Analizamos tu operación y mercadería", description: "Revisamos producto, origen, documentación y régimen para anticipar requisitos." },
-        { step: "02", title: "Clasificamos y preparamos la documentación", description: "Clasificación arancelaria correcta, liquidación de tributos y armado del DUA." },
-        { step: "03", title: "Gestionamos el despacho ante la Aduana", description: "Presentamos, coordinamos inspecciones y te representamos ante la DNA." },
-        { step: "04", title: "Liberamos y entregamos tu mercadería", description: "Seguimos cada paso hasta el retiro, con trazabilidad y comunicación directa." },
+        { step: "01", title: "Relevamos mercadería, origen y régimen", description: "Entendemos qué se importa, exporta o transita, bajo qué condición comercial y con qué documentación de base." },
+        { step: "02", title: "Clasificamos, calculamos y prevenimos", description: "Definimos NCM, tributos, certificados, permisos e intervenciones para anticipar el costo real de la operación." },
+        { step: "03", title: "Armamos y presentamos el despacho", description: "Preparamos el expediente, confeccionamos el DUA y actuamos como representantes ante la Dirección Nacional de Aduanas." },
+        { step: "04", title: "Seguimos observaciones, inspección y liberación", description: "Coordinamos verificaciones, respondemos observaciones y acompañamos la salida de la mercadería hasta el cierre operativo." },
       ],
     },
     forWhom: {
@@ -234,14 +234,14 @@ export const translations: Record<Locale, Messages> = {
       ],
     },
     hero: {
-      eyebrow: "Despacho de Aduana · Comercio Exterior",
-      title: "Tu despacho de aduana",
-      titleHighlight: "en manos expertas",
+      eyebrow: "Despachantes de Aduana · Uruguay",
+      title: "Despacho aduanero",
+      titleHighlight: "sin improvisar",
       subtitle:
-        "Lavoriero & Perez SRL — despachantes de aduana en Uruguay. Gestionamos tus importaciones y exportaciones con rigor técnico, claridad y trato directo.",
+        "Lavoriero & Perez SRL representa y acompaña a importadores, exportadores y empresas ante Aduana. Clasificación, documentación, tributos, permisos y liberación con criterio técnico y trato directo.",
       ctaWhatsApp: "Consultá tu operación",
-      ctaServices: "Ver servicios",
-      trustBadge: "Despachantes de aduana · Montevideo, Uruguay",
+      ctaServices: "Ver alcance aduanero",
+      trustBadge: "Importación · Exportación · Tránsito · DNA",
     },
     about: {
       kicker: "Sobre nosotros",
@@ -265,90 +265,110 @@ export const translations: Record<Locale, Messages> = {
       title: "Empresas que operan con Grupo LP",
     },
     services: {
-      kicker: "Servicios",
-      title: "Comercio exterior, gestionado de punta a punta",
+      kicker: "Alcance aduanero",
+      title: "Lo que resolvemos antes, durante y después del despacho",
       subtitle:
-        "Desde el despacho ante la Aduana hasta la logística y los trámites: un solo equipo para toda tu operativa.",
+        "El centro de nuestro trabajo es aduanero: representar, clasificar, documentar, calcular, tramitar y liberar. La logística aparece como apoyo cuando la operación lo necesita.",
       items: [
         {
           id: "despacho",
           title: "Despacho de Aduana",
           subtitle: "IMPORTACIÓN · EXPORTACIÓN · TRÁNSITO",
-          description: "Gestión integral del despacho y representación ante la Dirección Nacional de Aduanas.",
+          description: "Gestión integral de despachos de importación, exportación y tránsito, con representación formal ante la Dirección Nacional de Aduanas.",
           icon: "FileCheck",
-          mainFeatures: ["Despachos de importación y exportación", "Tránsitos y zonas francas", "Liquidación de tributos"],
-          targetAudience: "Empresas e importadores que necesitan operar en aduana en tiempo y forma, sin observaciones.",
+          mainFeatures: ["Importación, exportación y tránsito", "Confección y presentación de DUA", "Seguimiento de observaciones e inspecciones"],
+          targetAudience: "Empresas que necesitan liberar mercadería en regla, con visibilidad del expediente y un interlocutor técnico.",
           details: [
             {
-              title: "¿Qué gestionamos?",
-              items: ["Confección y presentación del DUA.", "Representación formal ante la DNA.", "Coordinación de inspecciones y verificaciones."]
+              title: "Gestión aduanera",
+              items: ["Armado del expediente documental.", "Presentación y seguimiento ante Aduana.", "Coordinación de verificaciones, canales y liberación."]
             },
             {
-              title: "Resultado",
-              items: ["Liberación ágil de la mercadería.", "Operativa en regla, sin sorpresas."]
+              title: "Operaciones",
+              items: ["Importaciones definitivas o temporarias.", "Exportaciones, tránsitos y reembarcos.", "Puerto, aeropuerto, frontera y zonas francas."]
             }
           ],
-          importantNote: "Anticipamos los requisitos antes del embarque para evitar demoras."
+          importantNote: "La carga se mueve mejor cuando el despacho está ordenado antes del arribo."
         },
         {
-          id: "comercio-exterior",
-          title: "Asesoramiento en Comercio Exterior",
-          subtitle: "NORMATIVA · CLASIFICACIÓN",
-          description: "Clasificación arancelaria, regímenes y normativa para que importes y exportes con seguridad.",
+          id: "clasificacion-costos",
+          title: "Clasificación, Tributos y Costos",
+          subtitle: "NCM · ARANCEL · IVA · TASAS",
+          description: "Análisis previo de mercadería, clasificación arancelaria y estructura de costos para evitar sorpresas después de comprar o embarcar.",
           icon: "Globe2",
-          mainFeatures: ["Clasificación arancelaria (NCM)", "Regímenes especiales", "Certificados de origen"],
-          targetAudience: "Empresas que buscan optimizar costos y operar con previsibilidad normativa.",
+          mainFeatures: ["Clasificación arancelaria NCM", "Cálculo de tributos y tasas", "Revisión de origen e Incoterms"],
+          targetAudience: "Importadores que necesitan saber si la operación es viable y cuánto cuesta realmente nacionalizar.",
           details: [
             {
-              title: "Asesoría técnica",
-              items: ["Clasificación correcta para tributación adecuada.", "Admisión temporaria, draw-back y otros regímenes."]
+              title: "Antes de operar",
+              items: ["Lectura técnica de descripción, uso y composición.", "Estimación de arancel, IVA, anticipos, tasas y gastos asociados."]
             },
             {
-              title: "Cumplimiento",
-              items: ["Gestión de certificados y permisos.", "Análisis previo de viabilidad de la operación."]
+              title: "Prevención",
+              items: ["Alertas por permisos o intervenciones.", "Revisión de factura, packing, flete, seguro y término de venta."]
             }
           ],
-          importantNote: "Recomendamos consultar la clasificación antes de confirmar la compra en origen."
+          importantNote: "La consulta temprana evita compras inviables, costos ocultos y demoras documentales."
         },
         {
-          id: "logistica",
-          title: "Logística & Transporte",
-          subtitle: "MARÍTIMO · AÉREO · TERRESTRE",
-          description: "Coordinación de transporte, depósito y entregas en plaza, integrada a tu despacho.",
-          icon: "Ship",
-          mainFeatures: ["Coordinación multimodal", "Depósito y almacenaje", "Entregas en todo el país"],
-          targetAudience: "Clientes que prefieren resolver el despacho y la logística con un único proveedor.",
+          id: "organismos-regimenes",
+          title: "Organismos y Regímenes Especiales",
+          subtitle: "VUCE · LATU · MGAP · MSP · URSEC",
+          description: "Gestión de permisos, certificados e intervenciones ante organismos de control según mercadería, sector y régimen aplicable.",
+          icon: "Briefcase",
+          mainFeatures: ["Permisos e intervenciones previas", "Certificados de origen", "Admisión temporaria y zonas francas"],
+          targetAudience: "Empresas con productos regulados o trámites que deben resolverse antes de presentar el despacho.",
           details: [
             {
-              title: "Coordinación integral",
-              items: ["Enlace con agentes de carga y transportistas.", "Gestión de depósito y desconsolidación."]
+              title: "Tramitación",
+              items: ["Gestiones ante VUCE y organismos competentes.", "Revisión de requisitos por partida y tipo de mercadería."]
             },
             {
-              title: "Cobertura",
-              items: ["Entregas en plaza coordinadas.", "Seguros de carga a solicitud."]
+              title: "Regímenes",
+              items: ["Zonas francas, puerto y aeropuerto libre.", "Admisiones temporarias, tránsitos y operaciones especiales."]
             }
           ],
-          importantNote: "Servicio coordinado con la operativa aduanera para no perder tiempos."
+          importantNote: "Muchos atrasos no son logísticos: son permisos que no se detectaron a tiempo."
         },
         {
           id: "tramites",
-          title: "Gestión Documental & Trámites",
-          subtitle: "ORGANISMOS · OUTSOURCING",
-          description: "Tramitación ante organismos y gestión documental del comercio exterior.",
-          icon: "Briefcase",
-          mainFeatures: ["Trámites ante organismos (LATU, MGAP, MSP)", "Gestión documental", "Outsourcing de comex"],
-          targetAudience: "Empresas que quieren delegar la parte administrativa y documental de sus operaciones.",
+          title: "Gestión Documental de Comercio Exterior",
+          subtitle: "FACTURA · PACKING · BL/AWB · CERTIFICADOS",
+          description: "Control documental para que factura, packing list, documento de transporte, seguro, origen y permisos lleguen consistentes al expediente.",
+          icon: "FileCheck",
+          mainFeatures: ["Checklist documental por operación", "Control de factura, packing y transporte", "Archivo y trazabilidad del expediente"],
+          targetAudience: "Equipos administrativos o comerciales que necesitan ordenar documentación sin perder tiempo operativo.",
           details: [
             {
-              title: "Qué resolvemos",
-              items: ["Permisos e intervenciones previas.", "Gestión y archivo de documentación."]
+              title: "Documentos base",
+              items: ["Factura comercial, packing list y comprobantes.", "BL, AWB, MIC/CRT, flete, seguro y certificados."]
             },
             {
-              title: "Beneficios",
-              items: ["Un único punto de contacto.", "Menos carga administrativa para tu equipo."]
+              title: "Control",
+              items: ["Detección de inconsistencias antes de presentar.", "Orden del expediente para consultas, auditorías y cierres."]
             }
           ],
-          importantNote: "Adaptamos el alcance a las necesidades de cada empresa."
+          importantNote: "Un documento mal armado puede costar más que un flete: lo revisamos antes."
+        },
+        {
+          id: "coordinacion-logistica",
+          title: "Coordinación Logística como Soporte",
+          subtitle: "CARGA · DEPÓSITO · ENTREGA",
+          description: "Coordinamos transporte, depósito, seguros o entrega cuando ayuda a cerrar la operación aduanera, sin desplazar el foco del despacho.",
+          icon: "Ship",
+          mainFeatures: ["Coordinación con agentes de carga", "Depósito y entrega en plaza", "Seguros de carga a solicitud"],
+          targetAudience: "Clientes que quieren alinear liberación y entrega sin convertir el despacho en una gestión fragmentada.",
+          details: [
+            {
+              title: "Apoyo operativo",
+              items: ["Enlace con forwarders, transportistas y depósitos.", "Coordinación de retiro posterior a la liberación."]
+            },
+            {
+              title: "Criterio",
+              items: ["La logística acompaña al despacho.", "Priorizamos cumplimiento, tiempos y costo total de la operación."]
+            }
+          ],
+          importantNote: "No somos un forwarder primero: somos despachantes que coordinan lo necesario para que la operación cierre bien."
         },
       ],
     },
@@ -398,7 +418,7 @@ export const translations: Record<Locale, Messages> = {
       ],
       formTitle: "Consultá sin compromiso",
       formDescription:
-        "Contanos sobre tu operación y nos comunicamos en menos de 24 horas.",
+        "Contanos qué mercadería querés importar, exportar o transitar y revisamos el camino aduanero más conveniente.",
       ctaWhatsAppAlt: "Prefiero escribir por WhatsApp",
       ctaDiff: "Empezá tu consulta ahora",
       labelName: "Nombre y Apellido",
@@ -412,14 +432,15 @@ export const translations: Record<Locale, Messages> = {
       labelService: "Servicio de interés",
       serviceOptions: {
         despacho: "Despacho de Aduana",
-        comex: "Asesoramiento en Comercio Exterior",
-        logistica: "Logística & Transporte",
-        tramites: "Gestión Documental & Trámites",
+        costos: "Clasificación, Tributos y Costos",
+        organismos: "Organismos y Regímenes Especiales",
+        documental: "Gestión Documental",
+        logistica: "Coordinación logística de soporte",
         other: "Otro / Asesoramiento",
       },
       labelMessage: "Mensaje",
       placeholderMessage:
-        "Tipo de mercadería, origen/destino y régimen (si aplica).",
+        "Mercadería, origen, destino, valor aproximado, vía de ingreso y si ya contás con factura/packing/documento de transporte.",
       privacyNoticeBefore: "Al enviar este formulario aceptás nuestra ",
       privacyNoticeLink: "Política de privacidad",
       privacyNoticeAfter: ".",
@@ -489,15 +510,15 @@ export const translations: Record<Locale, Messages> = {
       ],
     },
     process: {
-      kicker: "Process",
-      title: "An orderly, clear clearance with no surprises.",
+      kicker: "Customs file",
+      title: "From prior analysis to release: every decision documented.",
       subtitle:
-        "We work with a simple method so every foreign-trade operation moves forward predictably, end to end.",
+        "Clearance does not start when cargo arrives. It starts when goods, documentation, taxes, permits and interventions are reviewed in advance.",
       items: [
-        { step: "01", title: "We analyze your operation and goods", description: "We review product, origin, documentation and regime to anticipate requirements." },
-        { step: "02", title: "We classify and prepare the documentation", description: "Correct tariff classification, tax assessment and customs declaration." },
-        { step: "03", title: "We handle clearance before Customs", description: "We file, coordinate inspections and represent you before the customs authority." },
-        { step: "04", title: "We release and deliver your goods", description: "We track every step through pickup, with traceability and direct communication." },
+        { step: "01", title: "We review goods, origin and regime", description: "We understand what is imported, exported or transited, under which commercial terms and with which base documents." },
+        { step: "02", title: "We classify, calculate and prevent", description: "We define HS/NCM, taxes, certificates, permits and interventions to anticipate the real cost of the operation." },
+        { step: "03", title: "We prepare and file the clearance", description: "We build the file, prepare the customs declaration and act as representatives before the National Customs Directorate." },
+        { step: "04", title: "We follow observations, inspection and release", description: "We coordinate verifications, answer observations and support the goods release through operational closure." },
       ],
     },
     forWhom: {
@@ -517,14 +538,14 @@ export const translations: Record<Locale, Messages> = {
       ],
     },
     hero: {
-      eyebrow: "Customs Brokerage · Foreign Trade",
-      title: "Your customs clearance",
-      titleHighlight: "in expert hands",
+      eyebrow: "Customs Brokers · Uruguay",
+      title: "Customs clearance",
+      titleHighlight: "without improvising",
       subtitle:
-        "Lavoriero & Perez SRL — licensed customs brokers in Uruguay. We handle your imports and exports with technical rigor, clarity and direct service.",
+        "Lavoriero & Perez SRL represents and supports importers, exporters and companies before Customs. Classification, documentation, taxes, permits and release with technical criteria and direct service.",
       ctaWhatsApp: "Ask about your operation",
-      ctaServices: "View services",
-      trustBadge: "Customs brokers · Montevideo, Uruguay",
+      ctaServices: "View customs scope",
+      trustBadge: "Import · Export · Transit · Customs",
     },
     about: {
       kicker: "About us",
@@ -548,90 +569,110 @@ export const translations: Record<Locale, Messages> = {
       title: "Companies operating with Grupo LP",
     },
     services: {
-      kicker: "Services",
-      title: "Foreign trade, managed end to end",
+      kicker: "Customs scope",
+      title: "What we solve before, during and after clearance",
       subtitle:
-        "From customs clearance to logistics and paperwork: a single team for your entire operation.",
+        "The center of our work is customs: representation, classification, documentation, cost assessment, filings and release. Logistics appears as support when the operation needs it.",
       items: [
         {
           id: "despacho",
           title: "Customs Clearance",
           subtitle: "IMPORT · EXPORT · TRANSIT",
-          description: "Full clearance management and representation before the National Customs Directorate.",
+          description: "Full management of import, export and transit clearances, with formal representation before the National Customs Directorate.",
           icon: "FileCheck",
-          mainFeatures: ["Import and export clearance", "Transit and free-trade zones", "Tax assessment"],
-          targetAudience: "Companies and importers that need to clear customs on time, with no observations.",
+          mainFeatures: ["Import, export and transit", "Customs declaration preparation and filing", "Observation and inspection follow-up"],
+          targetAudience: "Companies that need to release goods in compliance, with visibility over the file and a technical point of contact.",
           details: [
             {
-              title: "What we handle",
-              items: ["Preparation and filing of the customs declaration.", "Formal representation before Customs.", "Coordination of inspections and verifications."]
+              title: "Customs management",
+              items: ["Documentary file preparation.", "Filing and follow-up before Customs.", "Coordination of verifications, channels and release."]
             },
             {
-              title: "Outcome",
-              items: ["Swift release of goods.", "Compliant operation, no surprises."]
+              title: "Operations",
+              items: ["Definitive or temporary imports.", "Exports, transit and re-embarkation.", "Port, airport, border and free-trade zones."]
             }
           ],
-          importantNote: "We anticipate requirements before shipment to avoid delays."
+          importantNote: "Cargo moves better when clearance is organized before arrival."
         },
         {
-          id: "comercio-exterior",
-          title: "Foreign Trade Advisory",
-          subtitle: "REGULATIONS · CLASSIFICATION",
-          description: "Tariff classification, regimes and regulations so you import and export with confidence.",
+          id: "clasificacion-costos",
+          title: "Classification, Taxes and Costs",
+          subtitle: "HS/NCM · DUTIES · VAT · FEES",
+          description: "Prior analysis of goods, tariff classification and cost structure to avoid surprises after purchasing or shipping.",
           icon: "Globe2",
-          mainFeatures: ["Tariff classification (HS/NCM)", "Special regimes", "Certificates of origin"],
-          targetAudience: "Companies looking to optimize costs and operate with regulatory predictability.",
+          mainFeatures: ["HS/NCM tariff classification", "Tax and fee assessment", "Origin and Incoterms review"],
+          targetAudience: "Importers that need to know whether the operation is viable and how much nationalization will really cost.",
           details: [
             {
-              title: "Technical advisory",
-              items: ["Correct classification for proper taxation.", "Temporary admission, drawback and other regimes."]
+              title: "Before operating",
+              items: ["Technical reading of description, use and composition.", "Estimate of duties, VAT, advances, fees and associated expenses."]
             },
             {
-              title: "Compliance",
-              items: ["Management of certificates and permits.", "Prior feasibility analysis of the operation."]
+              title: "Prevention",
+              items: ["Alerts for permits or interventions.", "Review of invoice, packing list, freight, insurance and sale term."]
             }
           ],
-          importantNote: "We recommend confirming classification before purchasing at origin."
+          importantNote: "Early consultation avoids unviable purchases, hidden costs and document delays."
         },
         {
-          id: "logistica",
-          title: "Logistics & Transport",
-          subtitle: "SEA · AIR · ROAD",
-          description: "Transport coordination, warehousing and local delivery, integrated with your clearance.",
-          icon: "Ship",
-          mainFeatures: ["Multimodal coordination", "Warehousing and storage", "Nationwide delivery"],
-          targetAudience: "Clients who prefer to handle clearance and logistics with a single provider.",
+          id: "organismos-regimenes",
+          title: "Agencies and Special Regimes",
+          subtitle: "VUCE · LATU · MGAP · MSP · URSEC",
+          description: "Management of permits, certificates and interventions before control agencies according to goods, sector and applicable regime.",
+          icon: "Briefcase",
+          mainFeatures: ["Permits and prior interventions", "Certificates of origin", "Temporary admission and free-trade zones"],
+          targetAudience: "Companies with regulated products or filings that must be solved before clearance is presented.",
           details: [
             {
-              title: "Integrated coordination",
-              items: ["Liaison with freight forwarders and carriers.", "Warehouse and deconsolidation management."]
+              title: "Filings",
+              items: ["Management before VUCE and competent agencies.", "Requirement review by tariff line and type of goods."]
             },
             {
-              title: "Coverage",
-              items: ["Coordinated local deliveries.", "Cargo insurance on request."]
+              title: "Regimes",
+              items: ["Free-trade zones, free port and free airport.", "Temporary admissions, transits and special operations."]
             }
           ],
-          importantNote: "Coordinated with customs operations so no time is lost."
+          importantNote: "Many delays are not logistics problems: they are permits that were not detected in time."
         },
         {
           id: "tramites",
-          title: "Documentation & Paperwork",
-          subtitle: "AGENCIES · OUTSOURCING",
-          description: "Filing before agencies and document management for foreign trade.",
-          icon: "Briefcase",
-          mainFeatures: ["Filing before agencies (LATU, MGAP, MSP)", "Document management", "Foreign-trade outsourcing"],
-          targetAudience: "Companies that want to delegate the administrative and documentary side of their operations.",
+          title: "Foreign-Trade Document Management",
+          subtitle: "INVOICE · PACKING · BL/AWB · CERTIFICATES",
+          description: "Document control so invoice, packing list, transport document, insurance, origin and permits reach the file consistently.",
+          icon: "FileCheck",
+          mainFeatures: ["Document checklist by operation", "Invoice, packing and transport control", "File archive and traceability"],
+          targetAudience: "Administrative or commercial teams that need to organize documentation without losing operating time.",
           details: [
             {
-              title: "What we solve",
-              items: ["Permits and prior interventions.", "Management and archiving of documentation."]
+              title: "Base documents",
+              items: ["Commercial invoice, packing list and payment records.", "BL, AWB, MIC/CRT, freight, insurance and certificates."]
             },
             {
-              title: "Benefits",
-              items: ["A single point of contact.", "Less administrative load for your team."]
+              title: "Control",
+              items: ["Detection of inconsistencies before filing.", "File order for inquiries, audits and closings."]
             }
           ],
-          importantNote: "We tailor the scope to each company's needs."
+          importantNote: "A poorly prepared document may cost more than freight: we review it beforehand."
+        },
+        {
+          id: "coordinacion-logistica",
+          title: "Logistics Coordination as Support",
+          subtitle: "CARGO · WAREHOUSE · DELIVERY",
+          description: "We coordinate transport, warehousing, insurance or delivery when it helps close the customs operation, without shifting the focus away from clearance.",
+          icon: "Ship",
+          mainFeatures: ["Coordination with freight agents", "Warehouse and local delivery", "Cargo insurance on request"],
+          targetAudience: "Clients who want to align release and delivery without turning clearance into fragmented management.",
+          details: [
+            {
+              title: "Operational support",
+              items: ["Liaison with forwarders, carriers and warehouses.", "Coordination of pickup after release."]
+            },
+            {
+              title: "Criteria",
+              items: ["Logistics supports clearance.", "We prioritize compliance, timing and total operation cost."]
+            }
+          ],
+          importantNote: "We are not a forwarder first: we are customs brokers coordinating what is needed for the operation to close well."
         },
       ],
     },
@@ -681,7 +722,7 @@ export const translations: Record<Locale, Messages> = {
       ],
       formTitle: "Inquire with no commitment",
       formDescription:
-        "Tell us about your operation and we'll get back to you within 24 hours.",
+        "Tell us what goods you want to import, export or transit and we will review the most convenient customs path.",
       ctaWhatsAppAlt: "I prefer to write via WhatsApp",
       ctaDiff: "Start your inquiry now",
       labelName: "First and Last Name",
@@ -695,14 +736,15 @@ export const translations: Record<Locale, Messages> = {
       labelService: "Service of interest",
       serviceOptions: {
         despacho: "Customs Clearance",
-        comex: "Foreign Trade Advisory",
-        logistica: "Logistics & Transport",
-        tramites: "Documentation & Paperwork",
+        costos: "Classification, Taxes and Costs",
+        organismos: "Agencies and Special Regimes",
+        documental: "Document Management",
+        logistica: "Support logistics coordination",
         other: "Other / Advisory",
       },
       labelMessage: "Message",
       placeholderMessage:
-        "Type of goods, origin/destination and regime (if applicable).",
+        "Goods, origin, destination, approximate value, entry mode and whether you already have invoice/packing/transport document.",
       privacyNoticeBefore: "By submitting this form, you accept our ",
       privacyNoticeLink: "Privacy policy (ES)",
       privacyNoticeAfter: ".",

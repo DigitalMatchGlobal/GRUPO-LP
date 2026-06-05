@@ -1,10 +1,11 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { ArrowDownRight, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { FacetedGlobe } from "@/components/landing/visuals/faceted-globe";
 import { useLanguage } from "@/components/i18n/language-context";
+import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
 import { getWhatsAppUrl } from "@/lib/site";
 
 export function HeroSection() {
@@ -48,11 +49,7 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 0.15 }}
           className="relative"
         >
-          <FacetedGlobe />
-          <div className="absolute right-0 top-[12%] border-r-2 border-accent-bright pr-4 text-right">
-            <p className="font-mono text-[0.56rem] uppercase tracking-[0.2em] text-white/45">Representación</p>
-            <p className="font-display mt-1 text-sm uppercase tracking-wide text-white">Aduana Uruguay</p>
-          </div>
+          <HeroVideoPanel />
         </motion.div>
       </div>
 
@@ -63,5 +60,50 @@ export function HeroSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function HeroVideoPanel() {
+  const reduced = usePrefersReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (reduced) return;
+    videoRef.current?.play().catch(() => undefined);
+  }, [reduced]);
+
+  return (
+    <div className="relative mx-auto aspect-[4/3] w-full max-w-[36rem] overflow-hidden border border-white/14 bg-primary shadow-2xl">
+      <video
+        ref={videoRef}
+        className="absolute inset-0 size-full object-cover opacity-78 saturate-[0.9]"
+        poster="/landing/hero-customs-poster.png"
+        autoPlay={!reduced}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        onCanPlay={(event) => {
+          if (!reduced) event.currentTarget.play().catch(() => undefined);
+        }}
+        aria-hidden
+      >
+        <source src="/landing/hero-customs-loop.mp4" type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-primary/28 mix-blend-multiply" />
+      <div aria-hidden className="absolute inset-0 bg-[linear-gradient(135deg,rgba(5,18,45,0.72)_0%,rgba(5,18,45,0.08)_46%,rgba(8,81,220,0.18)_100%)]" />
+      <div aria-hidden className="absolute -right-16 -top-16 size-56 border-[2.4rem] border-accent-bright/20 rotate-12" />
+      <div aria-hidden className="absolute bottom-0 left-0 h-28 w-2/3 bg-accent/24 [clip-path:polygon(0_44%,72%_0,100%_100%,0_100%)]" />
+
+      <div className="absolute left-5 top-5 border-l-2 border-accent-bright bg-primary/70 px-4 py-3 backdrop-blur">
+        <p className="font-mono text-[0.56rem] uppercase tracking-[0.2em] text-white/55">Expediente</p>
+        <p className="font-display mt-1 text-sm uppercase tracking-wide text-white">Aduana Uruguay</p>
+      </div>
+
+      <div className="absolute bottom-5 right-5 max-w-48 bg-white px-4 py-3 text-primary shadow-xl">
+        <p className="font-mono text-[0.56rem] font-bold uppercase tracking-[0.18em] text-accent">Control previo</p>
+        <p className="mt-1 text-xs leading-snug text-muted-foreground">Clasificación, documentación y liberación.</p>
+      </div>
+    </div>
   );
 }

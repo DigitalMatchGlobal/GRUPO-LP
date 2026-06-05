@@ -7,12 +7,10 @@ import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
 import { Header } from "@/components/landing/sections/header";
 import { HeroSection } from "@/components/landing/sections/hero";
-import { TrustSection } from "@/components/landing/sections/trust";
-import { AboutSection } from "@/components/landing/sections/about";
+import { OperationDiagnosisSection } from "@/components/landing/sections/operation-diagnosis";
+import { RiskMapSection } from "@/components/landing/sections/risk-map";
 import { ServicesSection } from "@/components/landing/sections/services";
 import { ProcessSection } from "@/components/landing/sections/process";
-import { ForWhomSection } from "@/components/landing/sections/for-whom";
-import { ReviewsSection } from "@/components/landing/sections/reviews";
 import { ContactSection } from "@/components/landing/sections/contact";
 import { Footer } from "@/components/landing/sections/footer";
 import { fadeEase } from "@/components/landing/sections/animations";
@@ -33,12 +31,10 @@ function LandingBody() {
       >
         <main>
           <HeroSection />
-          <TrustSection />
-          <AboutSection />
+          <OperationDiagnosisSection />
+          <RiskMapSection />
           <ServicesSection />
           <ProcessSection />
-          <ForWhomSection />
-          <ReviewsSection />
           <ContactSection />
         </main>
         <Footer />

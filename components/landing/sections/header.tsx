@@ -11,11 +11,14 @@ import { getWhatsAppUrl } from "@/lib/site";
 export function Header() {
   const { t, locale } = useLanguage();
   const scrolled = useScrollState(24);
+  const diagnosisLabel = locale === "es" ? "Diagnóstico" : "Diagnosis";
+  const riskLabel = locale === "es" ? "Riesgos" : "Risk map";
+  const fileLabel = locale === "es" ? "Expediente" : "File";
   const links = [
-    ["#nosotros", t.nav.about],
+    ["#diagnostico", diagnosisLabel],
+    ["#riesgos", riskLabel],
     ["#servicios", t.nav.services],
-    ["#proceso", t.nav.process],
-    ["#paraquien", t.nav.forWhom],
+    ["#proceso", fileLabel],
     ["#contacto", t.nav.contact],
   ];
 

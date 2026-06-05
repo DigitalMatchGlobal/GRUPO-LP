@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type ComponentType } from "react";
 import {
   ArrowRight,
@@ -24,12 +25,21 @@ const ICON_MAP: Record<string, ComponentType<LucideProps>> = {
   Briefcase,
 };
 
+const SERVICE_IMAGES: Record<string, string> = {
+  despacho: "/landing/service-customs-clearance.webp",
+  "clasificacion-costos": "/landing/service-classification-costs.webp",
+  "organismos-regimenes": "/landing/service-agencies-permits.webp",
+  tramites: "/landing/service-document-management.webp",
+  "coordinacion-logistica": "/landing/service-logistics-support.webp",
+};
+
 export function ServicesSection() {
   const { t, locale } = useLanguage();
   const [activeId, setActiveId] = useState(t.services.items[0].id);
   const activeIndex = Math.max(0, t.services.items.findIndex((item) => item.id === activeId));
   const active = t.services.items[activeIndex];
   const ActiveIcon = ICON_MAP[active.icon] || Package;
+  const activeImage = SERVICE_IMAGES[active.id];
 
   return (
     <MotionSection id="servicios" className="scroll-mt-24 overflow-hidden bg-primary py-(--section-py) text-white">
@@ -76,6 +86,27 @@ export function ServicesSection() {
                 transition={{ duration: 0.28 }}
                 className="facet-card relative z-10 min-h-[38rem] p-7 text-primary sm:p-10 lg:p-12"
               >
+                {activeImage && (
+                  <div className="relative -mx-7 -mt-7 mb-9 h-64 overflow-hidden bg-primary sm:-mx-10 sm:-mt-10 lg:-mx-12 lg:-mt-12">
+                    <Image
+                      src={activeImage}
+                      alt={active.title}
+                      fill
+                      sizes="(min-width: 1024px) 48vw, 100vw"
+                      className="object-cover saturate-[0.85]"
+                      priority={activeIndex === 0}
+                    />
+                    <div className="absolute inset-0 bg-primary/24 mix-blend-multiply" />
+                    <div aria-hidden className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,18,45,0)_32%,rgba(5,18,45,0.68)_100%)]" />
+                    <div className="absolute bottom-5 left-5 bg-white px-4 py-3 shadow-xl">
+                      <p className="font-mono text-[0.56rem] font-bold uppercase tracking-[0.18em] text-accent">
+                        Servicio / {String(activeIndex + 1).padStart(2, "0")}
+                      </p>
+                      <p className="font-display mt-1 text-sm uppercase tracking-wide text-primary">{active.subtitle}</p>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-start justify-between gap-8">
                   <div className="icon-box size-14 bg-accent">
                     <ActiveIcon className="size-6" strokeWidth={1.7} />
