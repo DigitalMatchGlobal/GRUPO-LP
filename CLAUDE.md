@@ -45,6 +45,15 @@ npm run lint     # eslint
   imports + orden de render. NO debe volver a engordar con JSX de secciones.
 - `components/landing/sections/` — una sección por archivo (convención del proyecto).
 - `components/landing/motion.tsx` — `MotionSection` / `MotionItem` (wrappers de scroll-reveal).
+- `components/landing/animated-backdrop.tsx` — **fondo animado compartido** `AnimatedBackdrop`
+  (`variant="dark" | "light"`): grilla técnica que deriva + halos de azul que respiran +
+  red de nodos low-poly con pulsos de datos. `aria-hidden`, se auto-recorta (`overflow-hidden`
+  propio → NO requiere `overflow-hidden` en la sección, así no rompe `sticky`). Respeta
+  `prefers-reduced-motion`. Colores fieles vía rgba (`8,90,249` dark / `8,81,220` light).
+- `components/landing/smooth-anchors.tsx` — `SmoothAnchors`: **interceptor global de anclas**
+  (`#id` / `/#id`) → scroll suave con Lenis (offset `-96` = `scroll-mt-24` del header fijo) y
+  **URL limpia, sin `#`**. Maneja deep-links entrantes. Montado en `landing-view.tsx` DENTRO
+  de `<ReactLenis>` (necesita el contexto de `useLenis`).
 - `components/brand/logo.tsx` — `BrandLogo` (usa el logo real `public/logo-grupo-lp-mark.png`).
 - `components/ui/` — primitivas estilo shadcn (button, input, label, textarea, card).
 - `components/i18n/` — `LanguageProvider` / `useLanguage` / `LanguageSwitcher`.
@@ -57,6 +66,9 @@ npm run lint     # eslint
 → Services (`#servicios`) → Process (`#proceso`) → Contact (`#contacto`, incluye
 ContactMapBand)** · `Footer` · `WhatsAppFab`.
 Nav del header numerada `01–05`. Todas las anclas internas apuntan a secciones que existen.
+La navegación NO deja `#` en la URL: `SmoothAnchors` intercepta los clicks y hace scroll
+suave con Lenis (ver `smooth-anchors.tsx`). Auditoría jun-2026: navegación e interacciones
+sin links rotos ni botones muertos.
 
 ### ⚠️ Secciones HUÉRFANAS (definidas pero NO renderizadas)
 Quedaron del diseño anterior; el rediseño las dejó fuera. No se importan en
@@ -67,8 +79,32 @@ Quedaron del diseño anterior; el rediseño las dejó fuera. No se importan en
 
 ## Sistema de diseño
 Lenguaje visual **“facetado / técnico”**: nav numerada, cortes diagonales (`clip-path`),
-grilla técnica (`.technical-grid`), etiquetas monoespaciadas (`DIAG / 01`, `RISK / 02`),
-utilidades `.section-title`, `.eyebrow`, `.eyebrow-light`.
+grilla técnica (`.technical-grid`), etiquetas monoespaciadas, utilidades `.section-title`,
+`.eyebrow`, `.eyebrow-light`, `.facet-card`, `.icon-box`.
+
+### Patrones de interacción por sección (rediseño jun-2026)
+Cada sección usa una **mecánica de interacción distinta** (a propósito, para dar variedad)
+sobre el mismo lenguaje visual. TODAS llevan `<AnimatedBackdrop>` de fondo. **Antes de
+rediseñar una, respetar/continuar su patrón; no “re-aplanar” a listas estáticas.**
+- **Hero** — panel de video (`HeroVideoPanel`), respeta reduced-motion.
+- **OperationDiagnosis (`#diagnostico`, light)** — 4 **cards expandibles** (click/tap → checklist
+  “Qué revisamos”, chevron funcional que rota). Número de paso `01 / 04`. Micro-interacciones
+  (barra de acento, ícono). Accesible (`role/aria-expanded/teclado`). Copy local con campo
+  `points` por card + `reviewLabel`.
+- **RiskMap (`#riesgos`, dark)** — **“ruta de riesgo”**: stepper de 5 nodos numerados con
+  **auto-avance** (4,5 s; pausa al hover; respeta reduced-motion) + panel de detalle que
+  transiciona. La línea/barra de progreso conectora es solo `lg+`; en `<lg` los nodos van en
+  fila (`justify-between`) y las **etiquetas se ocultan** (`hidden lg:block`). Datos como
+  objetos `{ title, body, icon }`.
+- **Services (`#servicios`, dark)** — **mobile = acordeón** (componente compartido
+  `ServiceDetail`); **desktop = tabs + panel** con nav prev/next e indicador `03 / 05`.
+- **Process (`#proceso`, light)** — **timeline vertical ligado al scroll**: el “lomo del
+  expediente” (línea de acento) se llena con `useScroll`/`scrollYProgress`; folios con estado
+  done(✓)/active(pulso)/todo; badge de avance en vivo `02/04` en la cabecera. Etiqueta `FOLIO 0X`.
+- **Contact (`#contacto`, light)** — formulario + `ContactMapBand`.
+
+> Las etiquetas mono crípticas `DIAG / 0X` y `RISK / 0X` del diseño viejo fueron reemplazadas
+> por estos patrones; no reintroducirlas.
 
 ### Paleta (fuente de verdad: `BRAND.md`, muestreada del mockup)
 Todos los colores de marca viven en `:root` de `app/globals.css`:
@@ -99,21 +135,33 @@ en el footer; verde WhatsApp `#25D366`; neutros (blancos/negros/grises de sombra
 ## i18n
 - Idiomas: **ES (default) + EN** (`lib/translations.ts`, tipado con `Messages`).
   Se quitó PT respecto de BPORT.
-- ⚠️ **Inconsistencia conocida:** las secciones nuevas `operation-diagnosis.tsx` y
-  `risk-map.tsx` definen su copy con objetos `es`/`en` **locales** en vez de usar
-  `translations.ts`. Pendiente consolidar en el diccionario central.
+- ⚠️ **Inconsistencia conocida:** `operation-diagnosis.tsx` y `risk-map.tsx` definen su copy
+  con objetos `es`/`en` **locales**; `process.tsx` usa `labels` local + `t.process`. El resto
+  usa `translations.ts`. Pendiente consolidar en el diccionario central. (Al editar copy de
+  esas 3 secciones, recordá que vive EN EL PROPIO ARCHIVO, no en `translations.ts`.)
 
 ## Datos / configuración
 - `lib/site.ts`: `WHATSAPP_PHONE`, `CONTACT`, URLs de Google Maps, `SOCIAL_LINKS`, `CLIENT_LOGOS`.
 - `app/layout.tsx`: metadata, OpenGraph, JSON-LD `ProfessionalService`, dominio.
 - `app/api/contact/route.ts`: envía el formulario vía Resend (`RESEND_API_KEY` en `.env.local`).
 
-## Pendientes antes de publicar (placeholder)
-1. **Datos de contacto reales**: `WHATSAPP_PHONE`, `CONTACT`, mapa (embed/perfil/cómo llegar)
-   en `lib/site.ts`; teléfono/dirección/mails en `lib/translations.ts`; dominio + JSON-LD en `layout.tsx`.
+## Pendientes antes de publicar (auditoría jun-2026)
+Resumen: estructura, navegación e interacciones **OK**; lo que falta es **dato/config del
+cliente** (no hay bugs de código). Por severidad:
+
+🔴 **CRÍTICO — el formulario de contacto NO entrega mails todavía** (`app/api/contact/route.ts`):
+   - `RESEND_API_KEY` cae a un valor dummy si no está en `.env.local`.
+   - `from:` usa el sandbox `onboarding@resend.dev` (falta **dominio remitente verificado** en Resend).
+   - `to: info@grupolp.com.uy` sin confirmar que la casilla exista/reciba.
+   → Hasta configurar las 3 cosas, el usuario envía pero **Grupo LP no recibe nada**.
+
+🟡 **Placeholders / datos de prueba** (funcionan pero son ficticios):
+1. **Contacto**: `WHATSAPP_PHONE` = `59899123456` (ficticio) y `CONTACT` en `lib/site.ts`;
+   teléfono/dirección/mails también en `lib/translations.ts` (⚠️ **duplicado** → cambiar en
+   ambos lugares); mapa de Google (embed/perfil/cómo-llegar son genéricos de Montevideo);
+   dominio `grupolp.com.uy` + JSON-LD en `layout.tsx`.
 2. **Favicon / OG**: `public/og-image.png`, `icon-*.png`, `apple-touch-icon.png` siguen
    siendo los heredados de BPORT — reemplazar. (El logo del header/footer ya es real.)
-3. **Resend**: API key propia en `.env.local` + dominio remitente verificado en `route.ts`.
-4. **Redes sociales**: completar `SOCIAL_LINKS` (hoy vacío) en `lib/site.ts`.
+3. **Redes sociales**: `SOCIAL_LINKS` vacío en `lib/site.ts`. **Logos clientes**: `CLIENT_LOGOS` vacío.
+4. Si se reincorporan Trust/Reviews: cifras y testimonios reales (hoy placeholder en `translations.ts`).
 5. Definir qué hacer con las **secciones huérfanas** (ver arriba).
-6. Si se reincorporan Trust/Reviews: cifras y testimonios reales (hoy placeholder en `translations.ts`).

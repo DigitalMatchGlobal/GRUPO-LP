@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 
+import { SmoothAnchors } from "@/components/landing/smooth-anchors";
 import { WhatsAppFab } from "@/components/landing/whatsapp-fab";
 import { LanguageProvider, useLanguage } from "@/components/i18n/language-context";
 import { Header } from "@/components/landing/sections/header";
@@ -49,6 +50,7 @@ export function LandingView() {
   return (
     <ReactLenis root options={{ lerp: 0.07, duration: 1.2 }}>
       <LanguageProvider>
+        <SmoothAnchors />
         <Header />
         <LandingBody />
       </LanguageProvider>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRight, CheckCircle2, Loader2, Mail, Phone } from "lucide-react";
 
+import { AnimatedBackdrop } from "@/components/landing/animated-backdrop";
 import { ContactMapBand } from "@/components/landing/sections/contact-map-band";
 import { MotionItem, MotionSection } from "@/components/landing/motion";
 import { Input } from "@/components/ui/input";
@@ -53,8 +54,9 @@ export function ContactSection() {
   const fieldClass = "h-12 border-primary/20 bg-white px-4 focus-visible:ring-0";
 
   return (
-    <MotionSection id="contacto" className="scroll-mt-24 bg-muted pt-(--section-py)">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <MotionSection id="contacto" className="relative scroll-mt-24 overflow-hidden bg-muted pt-(--section-py)">
+      <AnimatedBackdrop variant="light" />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:gap-14 lg:grid-cols-[0.78fr_1.22fr] lg:gap-20">
           <MotionItem>
             <p className="eyebrow">{t.contact.kicker}</p>
