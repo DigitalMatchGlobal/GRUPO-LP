@@ -130,15 +130,19 @@ export function ProcessSection() {
                           <h3 className="font-display mt-2 text-xl leading-tight tracking-tight sm:text-2xl">{item.title}</h3>
                           <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">{item.description}</p>
                         </div>
-                        <div className="relative hidden h-28 w-40 shrink-0 overflow-hidden border border-primary/10 sm:block">
+                        <div className="relative order-first h-40 w-full shrink-0 overflow-hidden border border-primary/10 sm:order-none sm:h-28 sm:w-40">
                           <Image
                             src={PROCESS_IMAGES[index]}
                             alt={item.title}
                             fill
-                            sizes="10rem"
-                            className={`object-cover transition-all duration-500 ${lit ? "saturate-100" : "saturate-[0.35] opacity-70"}`}
+                            sizes="(min-width: 640px) 10rem, 90vw"
+                            loading="lazy"
+                            className={`object-cover transition-all duration-500 ${lit ? "saturate-100" : "saturate-[0.4] opacity-80"}`}
                           />
                           <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
+                          <span className={`absolute left-0 top-0 bg-accent px-3 py-1 font-mono text-[0.56rem] font-bold tracking-[0.16em] text-white transition-opacity duration-300 sm:hidden ${lit ? "opacity-100" : "opacity-0"}`}>
+                            FOLIO {item.step}
+                          </span>
                         </div>
                       </div>
                     </div>
